@@ -1,0 +1,63 @@
+sudo apt update
+
+sudo apt install samba -y 
+
+sudo adduser alunorh
+
+sudo groupadd rh
+
+sudo usermod -aG rh alunorh
+
+sudo smbpasswd -a alunorh
+
+sudo mkdir -p /srv/samba/rh
+
+sudo chown -R root:rh /srv/samba/rh
+
+sudo chmod -R 2775 /srv/samba/rh
+
+configurar no smb.conf (/etc/samba)
+map to guest = never
+
+Inserir no final do arquivo smb.conf
+[rh]
+   path = /srv/samba/rh
+   browseable = yes
+   read only = no
+   valid users = @rh
+   force group = rh
+   create mask = 0775
+   directory mask = 0775
+
+sudo systemctl restart smbd
+
+sudo adduser alunoti
+
+sudo groupadd ti
+
+sudo usermod -aG ti alunoti
+
+sudo smbpasswd -a alunoti
+
+sudo mkdir -p /srv/samba/ti
+
+sudo chown -R root:ti /srv/samba/ti
+
+sudo chmod -R 2775 /srv/samba/ti
+
+Inserir no final do arquivo smb.conf
+[ti]
+   path = /srv/samba/ti
+   browseable = yes
+   read only = no
+   valid users = @ti
+   force group = ti
+   create mask = 0775
+   directory mask = 0775
+
+sudo systemctl restart smbd
+
+
+
+
+

@@ -1,0 +1,104 @@
+sudo apt update
+
+sudo apt upgrade
+
+sudo apt install bind9 bind9utils bind9-doc dnsutils -y
+
+configurar /etc/bind/named.conf.options
+
+acl internal-network {
+192.168.0.0/24;
+};
+options {
+        directory "/var/cache/bind";
+        allow-query { localhost; internal-network; };
+        allow-transfer { localhost; };
+        forwarders {
+           10.107.132.4;
+        };
+        recursion yes;
+        dnssec-validation no;
+#        listen-on-v6 { any; };
+};
+
+configurar /etc/bind/named.conf.local
+
+zone "aluno.local" IN {
+        type master;
+        file "/etc/bind/forward.aluno.local";
+        allow-update { none; };
+};
+zone "0.168.192.in-addr.arpa" IN {
+        type master;
+        file "/etc/bind/reverse.aluno.local";
+        allow-update { none; };
+};
+
+Primeiro, crie o arquivo de zona de busca direta, os arquivos de zona de amostra (db.local) já estão na pasta '/etc/bind', podemos usar e copiar o arquivo de zona de amostra,
+
+ cd /etc/bind
+ sudo cp db.local forward.aluno.local
+ sudo nano forward.aluno.local
+
+
+
+
+
+
+$TTL 604800
+@ IN SOA primary.aluno.local. root.primary.aluno.local. (
+                                   2022072651 ; Serial
+                                   3600 ; Refresh
+                                   1800 ; Retry
+                                   604800 ; Expire
+                                   604600 ) ; Negative Cache TTL
+;Name Server Information
+@       IN  NS    primary.aluno.local.
+
+;IP address of Your Domain Name Server(DNS)
+primary IN  A     192.168.0.1
+
+;Mail Server MX (Mail exchanger) Record
+aluno.local. IN MX 10   mail.aluno.local.
+
+;A Record for Host names
+www     IN  A    192.168.0.1
+mail    IN  A    192.168.0.1
+
+;CNAME Record
+ftp     IN CNAME www.aluno.local.
+
+Em seguida, criaremos um arquivo de zona de busca reversa no mesmo local, o arquivo de zona de busca reversa de exemplo está presente na pasta '/etc/bind'.
+
+$ sudo cp db.127 reverse.aluno.local
+$ sudo nano /etc/bind/reverse.aluno.local
+
+$TTL 86400
+@ IN SOA aluno.local. root.aluno.local. (
+                           2022072752 ;Serial
+                           3600 ;Refresh
+                           1800 ;Retry
+                           604800 ;Expire
+                           86400 ;Minimum TTL
+)
+;Your Name Server Info
+@ IN NS primary.aluno.local.
+primary   IN  A    192.168.0.1
+;Reverse Lookup for Your DNS Server
+1        IN PTR   primary.aluno.local.
+;PTR Record IP address to HostName
+1        IN PTR   www.aluno.local.
+1        IN PTR   mail.aluno.local.
+
+Atualize o seguinte parâmetro no arquivo '/etc/default/named ', para que o serviço DNS comece a ouvir no IPv4
+
+OPTIONS="-u bind -4"
+
+sudo systemctl stop named
+sudo systemctl start named
+sudo systemctl enable named
+sudo systemctl status named
+
+named-checkconf
+named-checkzone aluno.local /etc/bind/forward.aluno.local
+

@@ -1,0 +1,72 @@
+
+
+sudo nano /etc/netplan/50-cloud-init.yaml
+
+network:
+  version: 2
+  ethernets:
+    enp0s3:
+      dhcp4: true
+    enp0s8:
+      dhcp4: no
+      addresses:  [X.X.X.X/X]
+
+OPÇÂO 
+
+network:
+  version: 2
+  ethernets:
+    enp0s3:
+      dhcp4: true
+    enp0s8:
+      dhcp4:  no
+      addresses:
+        - 192.168.0.1/24
+      nameservers:
+        addresses:
+          - 10.107.132.4
+
+sudo netplan apply
+
+sudo apt install isc-dhcp-server
+
+sudo cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bkp
+
+sudo nano /etc/dhcp/dhcpd.conf
+
+# A slightly different configuration for an internal subnet.
+subnet 192.168.0.0 netmask 255.255.255.0 {
+  range 192.168.0.2 192.168.0.254;
+#  option domain-name-servers ns1.internal.example.org;
+#  option domain-name "internal.example.org";
+#  option subnet-mask 255.255.255.0;
+  option routers 192.168.0.1;
+  option broadcast-address 192.168.0.1;
+  default-lease-time 600;
+  max-lease-time 7200;
+}
+
+cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bkp
+sudo nano /etc/default/isc-dhcp-server
+
+
+
+INTERFACESv4= "enp0s8"
+#INTERFACESv6=""
+
+
+sudo systemctl restart isc-dhcp-server
+
+
+
+
+
+
+sudo tail -f /var/log/syslog | grep dhcpd
+
+
+
+
+
+
+

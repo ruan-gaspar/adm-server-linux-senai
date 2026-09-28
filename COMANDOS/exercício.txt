@@ -1,0 +1,31 @@
+***********************************************************************************
+Descubra em qual diretório você está.
+Liste os arquivos e pastas existentes.
+Criar a pasta projeto.
+Entre na pasta projeto.
+Volte para o diretório anterior.
+
+
+*************Crie uma estrutura para um pequeno projeto chamado site:*************
+
+site/
+├── html/
+├── css/
+└── js/
+
+Depois, crie três arquivos vazios:
+
+index.html dentro de html
+style.css dentro de css
+script.js dentro de js
+
+
+***************Copiar e renomear arquivos**************
+
+Dentro da pasta site/html, existe o arquivo index.html.
+
+Você precisa:
+
+Criar uma cópia chamada index_backup.html.
+Renomear index.html para principal.html.
+Listar os arquivos para conferir o resultado.

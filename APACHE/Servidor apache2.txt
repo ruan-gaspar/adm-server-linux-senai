@@ -1,0 +1,37 @@
+Servidor apache2 no Ubuntu
+
+sudo apt update
+
+INSTALAR O PACOTE APACHE
+sudo apt install apache2 -y
+
+VERIFICAR O STATUS s
+sudo systemctl status apache2
+TESTAR NO NAVEGADOR
+Ex: (ip do servidor)
+Vai abrir a página inicial do apache
+
+LOCALIZAR O DIRETÓRIO DE PÁGINAS WEB
+cd /var/www/html
+
+COPIAR O ARQUIVO index.html E NA CÓPIA COLOCAR O NOME DE index.html.bkp
+sudo cp /var/www/html/index.html /var/www/html/index.html.bkp
+
+EDITAR O ARQUIVO
+
+sudo nano /var/www/html/index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Laboratório Apache</title>
+</head>
+<body>
+<h1>Servidor Apache funcionando!</h1>
+<p>Esta página foi criada durante o laboratório de redes.</p>
+</body>
+</html>
+
+TESTAR A PÁGINA
+
+http://192.168.0.1 (ip do servidor)

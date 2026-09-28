@@ -1,0 +1,55 @@
+
+sudo apt update
+
+sudo apt install samba -y 
+
+sudo adduser alunorh
+
+sudo smbpasswd -a alunorh
+
+configurar no smb.conf
+map to guest = never
+
+[arquivos]
+   path = /srv/samba
+   browseable = yes
+   read only = no
+   valid users = alunorh
+   force user = alunorh
+   create mask = 0775
+   directory mask = 0775
+
+sudo mkdir /srv/samba
+
+sudo chown -R alunorh:sambashare /srv/samba/
+
+sudo chmod -R 775 /srv/samba/
+
+****************************************************
+
+Criar grupos de departamentos
+
+sudo adduser alunorh
+
+sudo smbpasswd -a alunorh
+
+sudo groupadd rh
+
+sudo usermod -aG rh alunorh
+
+sudo mkdir -p /srv/samba/rh
+sudo chown -R root:rh /srv/samba/rh
+sudo chmod -R 2775 /srv/samba/rh
+
+[rh]
+   path = /srv/samba/rh
+   browseable = yes
+   read only = no
+
+   valid users = @rh
+   force group = rh
+
+   create mask = 0664
+   directory mask = 2775
+
+sudo systemctl restart smbd

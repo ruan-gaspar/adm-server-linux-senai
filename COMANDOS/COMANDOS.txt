@@ -1,0 +1,400 @@
+==================================================
+GUIA PRÁTICO DE COMANDOS LINUX
+Explicados com exemplos reais do dia a dia
+==================================================
+
+
+==============================
+1. NAVEGAÇÃO NO SISTEMA
+==============================
+
+COMANDO: pwd
+DESCRIÇÃO:
+Mostra o caminho completo do diretório atual.
+
+USO REAL:
+Quando você se perde no terminal e quer saber onde está.
+
+EXEMPLO:
+pwd
+RETORNO:
+/home/usuario/projetos
+
+
+COMANDO: ls
+DESCRIÇÃO:
+Lista arquivos e diretórios.
+
+USO REAL:
+Ver arquivos de um projeto ou conferir downloads.
+
+EXEMPLOS:
+ls
+ls -l
+ls -lh
+ls -a
+
+
+COMANDO: cd
+DESCRIÇÃO:
+Muda de diretório.
+
+USO REAL:
+Entrar em pastas de projetos ou voltar níveis.
+
+EXEMPLOS:
+cd projetos
+cd site
+cd ..
+cd ~
+
+
+==============================
+2. CRIAÇÃO E REMOÇÃO DE ARQUIVOS
+==============================
+
+COMANDO: touch
+DESCRIÇÃO:
+Cria arquivos vazios.
+
+USO REAL:
+Criar arquivos de código ou configuração.
+
+EXEMPLOS:
+touch index.html
+touch app.py
+
+
+COMANDO: cp
+DESCRIÇÃO:
+Copia arquivos ou diretórios.
+
+USO REAL:
+Criar backup antes de alterações.
+
+EXEMPLOS:
+cp config.conf config.conf.bkp
+cp -r projeto/ projeto_backup/
+
+
+COMANDO: mv
+DESCRIÇÃO:
+Move ou renomeia arquivos.
+
+USO REAL:
+Organizar arquivos ou corrigir nomes.
+
+EXEMPLOS:
+mv teste.txt teste_final.txt
+mv *.jpg imagens/
+
+
+COMANDO: rm
+DESCRIÇÃO:
+Remove arquivos ou diretórios.
+
+USO REAL:
+Excluir arquivos temporários.
+
+EXEMPLOS:
+rm arquivo.txt
+rm -r pasta/
+rm -rf node_modules/  (CUIDADO)
+
+
+==============================
+3. VISUALIZAÇÃO DE ARQUIVOS
+==============================
+
+COMANDO: cat
+DESCRIÇÃO:
+Mostra todo o conteúdo do arquivo.
+
+USO REAL:
+Visualizar arquivos pequenos.
+
+EXEMPLO:
+cat config.txt
+
+
+COMANDO: less
+DESCRIÇÃO:
+Visualiza arquivos grandes com rolagem.
+
+USO REAL:
+Analisar logs do sistema.
+
+EXEMPLO:
+less /var/log/syslog
+
+
+COMANDO: head
+DESCRIÇÃO:
+Mostra as primeiras linhas.
+
+USO REAL:
+Ver cabeçalho de arquivos CSV.
+
+EXEMPLO:
+head arquivo.csv
+
+
+COMANDO: tail
+DESCRIÇÃO:
+Mostra as últimas linhas.
+
+USO REAL:
+Monitorar logs em tempo real.
+
+EXEMPLO:
+tail -f /var/log/nginx/error.log
+
+
+==============================
+4. BUSCA E FILTRAGEM
+==============================
+
+COMANDO: grep
+DESCRIÇÃO:
+Busca palavras dentro de arquivos.
+
+USO REAL:
+Encontrar erros em logs.
+
+EXEMPLOS:
+grep "error" app.log
+grep -i "fail" app.log
+
+
+COMANDO: find
+DESCRIÇÃO:
+Busca arquivos no sistema.
+
+USO REAL:
+Encontrar arquivos esquecidos.
+
+EXEMPLO:
+find /home -name "*.pdf"
+
+
+==============================
+5. REDIRECIONAMENTO E PIPES
+==============================
+
+COMANDO: >
+DESCRIÇÃO:
+Redireciona saída para arquivo (sobrescreve).
+
+USO REAL:
+Salvar resultados.
+
+EXEMPLO:
+ls -l > lista.txt
+
+
+COMANDO: >>
+DESCRIÇÃO:
+Redireciona saída anexando.
+
+USO REAL:
+Criar logs.
+
+EXEMPLO:
+echo "Backup feito" >> log.txt
+
+
+COMANDO: |
+DESCRIÇÃO:
+Conecta comandos.
+
+USO REAL:
+Filtrar informações.
+
+EXEMPLO:
+ps aux | grep nginx
+
+
+==============================
+6. PROCESSOS E SISTEMA
+==============================
+
+COMANDO: ps
+DESCRIÇÃO:
+Lista processos em execução.
+
+USO REAL:
+Encontrar processos travados.
+
+EXEMPLO:
+ps aux
+
+
+COMANDO: top
+DESCRIÇÃO:
+Monitor de processos em tempo real.
+
+USO REAL:
+Ver consumo de CPU e RAM.
+
+EXEMPLO:
+top
+
+
+COMANDO: htop
+DESCRIÇÃO:
+Versão melhorada do top.
+
+USO REAL:
+Administração de servidores.
+
+EXEMPLO:
+htop
+
+
+COMANDO: kill
+DESCRIÇÃO:
+Finaliza processos.
+
+USO REAL:
+Encerrar programa travado.
+
+EXEMPLOS:
+kill 1234
+kill -9 1234
+
+
+==============================
+7. DISCO E ARMAZENAMENTO
+==============================
+
+COMANDO: df
+DESCRIÇÃO:
+Mostra uso do disco.
+
+USO REAL:
+Ver espaço disponível.
+
+EXEMPLO:
+df -h
+
+
+COMANDO: du
+DESCRIÇÃO:
+Mostra tamanho de diretórios.
+
+USO REAL:
+Descobrir o que ocupa espaço.
+
+EXEMPLO:
+du -sh *
+
+
+==============================
+8. USUÁRIOS E PERMISSÕES
+==============================
+
+COMANDO: whoami
+DESCRIÇÃO:
+Mostra usuário atual.
+
+USO REAL:
+Confirmar se está como root.
+
+EXEMPLO:
+whoami
+
+
+COMANDO: chmod
+DESCRIÇÃO:
+Altera permissões.
+
+USO REAL:
+Tornar script executável.
+
+EXEMPLO:
+chmod +x script.sh
+
+
+COMANDO: chown
+DESCRIÇÃO:
+Altera dono do arquivo.
+
+USO REAL:
+Corrigir permissões.
+
+EXEMPLO:
+chown www-data:www-data site/
+
+
+==============================
+9. REDE
+==============================
+
+COMANDO: ping
+DESCRIÇÃO:
+Testa conectividade.
+
+USO REAL:
+Ver se servidor responde.
+
+EXEMPLO:
+ping google.com
+
+
+COMANDO: curl
+DESCRIÇÃO:
+Faz requisições HTTP.
+
+USO REAL:
+Testar APIs.
+
+EXEMPLO:
+curl http://localhost:3000/api
+
+
+COMANDO: wget
+DESCRIÇÃO:
+Baixa arquivos.
+
+USO REAL:
+Download de scripts e backups.
+
+EXEMPLO:
+wget https://site.com/arquivo.zip
+
+
+==============================
+10. PACOTES (DEBIAN/UBUNTU)
+==============================
+
+COMANDO: apt
+DESCRIÇÃO:
+Gerenciador de pacotes.
+
+USO REAL:
+Instalar programas.
+
+EXEMPLOS:
+apt update
+apt upgrade
+apt install git nginx docker
+
+
+==============================
+11. AJUDA
+==============================
+
+COMANDO: man
+DESCRIÇÃO:
+Manual completo do comando.
+
+USO REAL:
+Aprender opções avançadas.
+
+EXEMPLO:
+man rsync
+
+
+==================================================
+FIM DO GUIA
+==================================================

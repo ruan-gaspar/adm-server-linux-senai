@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Laboratório Apache</title>
+</head>
+<body>
+<h1>Servidor Apache funcionando!</h1>
+<p>Esta página foi criada durante o laboratório de redes.</p>
+</body>
+</html>

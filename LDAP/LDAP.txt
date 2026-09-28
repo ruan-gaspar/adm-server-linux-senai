@@ -1,0 +1,63 @@
+
+Abrir arquivo /etc/hosts e acrescentar a linha 
+
+192.168.0.1     ldapserver.aluno.local  ldapserver
+
+
+como no exemplo:
+127.0.0.1 localhost
+127.0.1.1 aluno
+192.168.0.1     ldapserver.aluno.local  ldapserver
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+Editar o arquivo /etc/hostname
+
+ldapserver
+
+Reiniciar o servidor
+sudo systemctl restart slapd
+
+Instalar os pacotes referentes ao serviço
+sudo apt install slapd ldap-utils -y
+
+após instalação execuar o comando
+
+sudo dpkg-reconfigure slapd
+selecione a opção "Não"
+selecione a opção "sim" para remover a base de dados
+selecione a opção "não" para não mover a base de dados antiga
+
+LDAP MANAGER
+
+sudo apt update && sudo apt install -y ldap-account-manager
+
+Ajustar memória no PHP
+sudo nano /etc/php/8.3/apache2/php.ini
+
+na linha alterar no memory_limit para 256m
+
+sudo systemctl restart apache2
+
+http://IP_DO_SEU_SERVIDOR/lam
+
+para gerar nova senha do usuáro admin 
+
+Gere um novo código de senha no terminal:
+lappasswd
+
+Crie o arquivo de modificação:
+nano corrigir_senha.ldif
+
+Cole o conteúdo abaixo, já com o seu domínio correto:
+
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcRootPW
+olcRootPW: COLE_O_CODIGO_GERADO_AQUI   EX: {SSHA}OfWJVu61xlNgCpUc+LhsGAbwqDDZl5E7
+

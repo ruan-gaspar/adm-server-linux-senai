@@ -1,0 +1,16 @@
+
+sudo iptables -A [CADEIA] -p [protocolo] --dport [porta] -j [AÇÃO]
+
+
+sudo iptables -A INPUT -p tcp --dport 80 -j DROP          "BLOCK PORTA 80"
+
+sudo iptables -D INPUT -p tcp --dport 80 -j DROP	  "LIBERA A PORTA 80 NOVAMENTE"
+
+sudo iptables -L INPUT -n --line-numbers                  "LISTA AS REGRAS ATIVAS"
+
+
+*************NAT para Internet*************
+
+echo 1 > /proc/sys/net/ipv4/ip_forward		             "você transforma o seu computador ou servidor em um roteador"
+sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE  "compartilhar a internet do seu servidor com o restante da rede local"
+
