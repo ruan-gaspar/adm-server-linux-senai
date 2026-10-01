@@ -1,0 +1,73 @@
+sudo apt update
+
+sudo apt install cups -y
+
+sudo systemctl stop cups
+sudo systemctl start cups
+sudo systemctl status cups
+sudo systemctl enable cups
+
+Adicione seu usuário ao grupo lpadmin:
+sudo usermod -aG lpadmin $USER
+
+Configure o CUPS para acesso remoto:
+sudo nano /etc/cups/cupsd.conf
+*Mude Listen localhost:631 para Port 631.
+*Nas seções <Location />, <Location /admin>, e <Location /admin/conf>, adicione Allow @LOCAL para permitir redes locais.
+
+Exemplo
+<Location />
+  Order allow,deny
+  Allow @LOCAL
+</Location>
+
+Reinicie o serviço: 
+sudo systemctl restart cups
+
+Abra um navegador e digite: https://<IP-DO-SERVIDOR>:631
+
+IMPRESSORA
+
+sudo apt install printer-driver-cups-pdf
+
+Adicionar impressora no Windows
+Caminho:
+Painel de Controle
+Dispositivos e Impressoras
+Adicionar impressora
+Clique em:
+"A impressora que eu quero não está na lista"
+Adicionar via IPP
+
+Escolha:
+
+Selecionar uma impressora compartilhada pelo nome
+
+E coloque:
+
+http://IP_DO_SERVIDOR:631/printers/PDF
+
+Exemplo:
+
+http://192.168.0.10:631/printers/PDF
+
+
+Escolher driver
+
+Quando o Windows pedir driver:
+
+Pode usar:
+
+Generic / MS Publisher Imagesetter
+ou qualquer driver genérico
+
+Como é PDF, o driver não precisa ser perfeito.
+
+Testar
+
+Imprima qualquer coisa:
+O arquivo NÃO sai no Windows
+Ele vai aparecer no servidor em:
+
+/home/usuario/PDF/
+
